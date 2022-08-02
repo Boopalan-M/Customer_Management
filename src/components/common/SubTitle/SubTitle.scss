@@ -1,0 +1,22 @@
+.Subtitle_Header {
+  .Subtitle_Header_Content {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #494949;
+  }
+  .Subtitle_Header_Btn {
+    width: 100%;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    letter-spacing: 0.3px;
+    color: #1890ff;
+    font-weight: 600;
+    background-color: white;
+    border: 0.5px solid #188fff3b;
+    font-size: 14px;
+  }
+}
