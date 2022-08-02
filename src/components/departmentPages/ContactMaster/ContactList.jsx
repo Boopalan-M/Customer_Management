@@ -90,7 +90,7 @@ const ContactList = () => {
 
   return (
     <div className="AMC_Master_List">
-      <h3 classname=" justify-content-between align-items-center  w-100 px-1">
+      <h3 style={{justifyContent:"space-between"}}>
         Contacts List
       </h3>
       <SubTitle

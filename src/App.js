@@ -3,7 +3,7 @@ import "antd/dist/antd.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Route, Routes, } from "react-router-dom"
 
-import Contatcts from "./components/departmentPages/AMCMaster"
+import Contatcts from "./components/departmentPages/ContactMaster"
 
 function App() {
  

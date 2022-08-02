@@ -10,153 +10,153 @@ const ExampleTable = () => {
     const data = [
       {
         SlNo: 1,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 2,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 3,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 4,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 5,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 6,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 7,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 8,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 9,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 10,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 11,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 12,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 13,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 14,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 15,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 16,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 17,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 18,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 19,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 20,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 21,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 22,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 23,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 24,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 25,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 26,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 27,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
       {
         SlNo: 28,
-        Name: "Harry",
-        LastName: "Potter",
+        contactname: "Harry",
+        company_name: "Potter",
       },
       {
         SlNo: 29,
-        Name: "Ron",
-        LastName: "Weasly",
+        contactname: "Ron",
+        company_name: "Weasly",
       },
       {
         SlNo: 30,
-        Name: "Hermoine",
-        LastName: "Granger",
+        contactname: "Hermoine",
+        company_name: "Granger",
       },
     ];
   
@@ -171,16 +171,16 @@ const ExampleTable = () => {
     };
   
     const getColumnHeaders = () => {
-      let keys = ["SlNo", "Name", "LastName"];
+      let keys = ["SlNo", "contactname", "company_name"];
       let def = {
         SlNo: { dataField: "SlNo", text: "Sl.No", sort: true },
-        Name: {
-          dataField: "Name",
-          text: "First Name",
+        contactname: {
+          dataField: "contactname",
+          text: "contactname",
         },
-        LastName: {
-          dataField: "LastName",
-          text: "Last Name",
+        company_name: {
+          dataField: "company_name",
+          text: "company Name",
         },
       };
   
