@@ -89,12 +89,10 @@ const ContactList = () => {
   };
 
   return (
-    <div className="AMC_Master_List">
-      <h3 style={{justifyContent:"space-between"}}>
-        Contacts List
-      </h3>
+    <div className="Contact_List">
+     
       <SubTitle
-        // heading={`Add Contacts`}
+         heading={`Contacts List`}
         isButton={true}
         buttonText="+ Add Contacts"
       />

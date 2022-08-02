@@ -26,7 +26,7 @@ const Table = ({ keyField, data, columns,...rest }) => {
       >
         {(props) => (
           <>
-            {
+            {/* {
               <div className="d-flex justify-content-start w-100 px-1">
                 <div className=" mt-2 mb-4">
                   <SearchBar
@@ -36,7 +36,7 @@ const Table = ({ keyField, data, columns,...rest }) => {
                   />
                 </div>
               </div>
-            }
+            } */}
 
             <div className="react_table_wrapperclass_div">
               <BootstrapTable
