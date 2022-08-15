@@ -1,42 +1,6 @@
 {
   "users": [
     {
-      "contact_name": "Sanjay987",
-      "customer_name": "Viswa",
-      "company_name": "sanjay and Co",
-      "email": "test@zylker.org",
-      "first_name": "Sanjay45",
-      "last_name": "Wiswa",
-      "phone": "9942465895",
-      "website": "www.sanjay.org",
-      "mobile": "7898654323",
-      "id": 1
-    },
-    {
-      "contact_name": "Boopalan M",
-      "customer_name": "Boopalan M",
-      "company_name": "Prematix",
-      "email": "mboopalan98@gmail.com",
-      "first_name": "check",
-      "last_name": "M",
-      "phone": "07904010308",
-      "website": "Www.Prematix.com",
-      "mobile": "080723220066",
-      "id": 5
-    },
-    {
-      "contact_name": "Parthasarathy",
-      "customer_name": "Parthasarathy",
-      "company_name": "Zoho",
-      "email": "raghu@gmail.com",
-      "first_name": "Parthasarathy",
-      "last_name": "G",
-      "phone": "08072322006",
-      "website": "www.optisol.com",
-      "mobile": "08072322006",
-      "id": 6
-    },
-    {
       "contact_name": "Aishwarya",
       "customer_name": "Nagesh",
       "company_name": "Zoho",
@@ -83,18 +47,6 @@
       "website": "eeee",
       "mobile": 8524563215,
       "id": 10
-    },
-    {
-      "contact_name": "Parthasarathy",
-      "customer_name": "Parthasarathy",
-      "company_name": "Prematix",
-      "email": "raghu@gmail.com",
-      "first_name": "Parthasarathy",
-      "last_name": "G",
-      "phone": 8072322006,
-      "website": "www.zoho.com",
-      "mobile": 7904010308,
-      "id": 11
     }
   ]
 }

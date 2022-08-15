@@ -3,21 +3,23 @@ import { IoMdCreate } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import SubTitle from "../../common/SubTitle/SubTitle";
-import {HiDuplicate} from "react-icons/hi";
+import { HiDuplicate } from "react-icons/hi";
 import {
   getContactList,
   deleteContact,
 } from "../../../services/ContactService";
 import Table from "../../common/Table/Table";
-
+import "../../../common.scss";
 import _ from "lodash";
 import { showNotification } from "../../common/Methods/index";
-const ContactList = () => {
+import { Button, Drawer } from "antd";
+const ContactList = ({formType, editState, ...props} ) => {
   const [columns, setColumns] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   const [contactsList, setContactsList] = useState([]);
-
+  const [visible, setVisible] = useState(false);
+  const [drawerrow,setDrawerrow] = useState({})
   const navigateTo = useNavigate();
   useEffect(() => {
     ContactList();
@@ -26,7 +28,7 @@ const ContactList = () => {
 
   const ContactList = async () => {
     const apiResponse = await getContactList();
-    console.log(apiResponse, "checking Apiresponse");
+    
     let contactListData = [];
     if (apiResponse?.status === 200 && apiResponse?.data?.length > 0) {
       contactListData = apiResponse?.data?.map((list, index) => {
@@ -72,15 +74,14 @@ const ContactList = () => {
       "company_name",
       "website",
       "mobile",
-      "edit",
-      "status",
-      "Duplicate"
+      
     ];
     let def = {
       contact_name: {
         dataField: "contact_name",
         text: "contact_name",
         sort: true,
+        formatter: sidedrawrformatter,
       },
       company_name: {
         dataField: "company_name",
@@ -94,21 +95,7 @@ const ContactList = () => {
         dataField: "mobile",
         text: "Mobile",
       },
-      edit: {
-        dataField: "edit",
-        text: "Edit",
-        formatter: editFormatter,
-      },
-      status: {
-        dataField: "activeStatus",
-        text: "Status",
-        formatter: deleteFormatter,
-      },
-      Duplicate:{
-        dataField: "activeStatus",
-        text: "Duplicate",
-        formatter: DuplicateFormatter,
-      }
+      
     };
 
     let columns = [];
@@ -117,41 +104,22 @@ const ContactList = () => {
     });
     return columns;
   };
+  const sidedrawrformatter = (cell, row, rowIndex) => {
+   
+    let links = [];
+    links.push(row.contact_name);
 
-  const editFormatter = (cell, row) => {
-    console.log(row, "checking row");
-    let links = [];
-    links.push(
-      <IoMdCreate
-        title="Edit"
-        className="table_icon"
-        onClick={() => navigateTo(`/home/update`, { state: row })}
-      />
+    return (
+      <div
+        className="text-center"
+        style={{ cursor: "pointer" }}
+        onClick={() => showDrawer(row)}
+      >
+        {links.concat(" ")}
+      </div>
     );
-    return <div className="text-center">{links.concat(" ")}</div>;
   };
-  const deleteFormatter = (cell, row, rowIndex) => {
-    let links = [];
-    links.push(
-      <AiFillDelete
-        title="Delete"
-        className="table_icon"
-        onClick={() => deleteContactList(row)}
-      />
-    );
-    return <div className="text-center">{links.concat(" ")}</div>;
-  };
-const DuplicateFormatter = (cell,row,rowIndex) =>{
-  let links = [];
-  links.push(
-    <HiDuplicate
-      title="Duplicate"
-      className="table_icon"
-      onClick={() => navigateTo(`/home/duplicate`, { state: row })}
-    />
-  );
-  return <div className="text-center">{links.concat(" ")}</div>;
-}
+ 
   const deleteContactList = async (row) => {
     const apiResponse = await deleteContact(row);
     if (apiResponse.status === 200) {
@@ -159,9 +127,21 @@ const DuplicateFormatter = (cell,row,rowIndex) =>{
         title: "Data Deleted Successfully",
         variant: "success",
       });
+      await ContactList();
+      onClose();
       navigateTo(`/home/list`);
     }
-    console.log(apiResponse, "checkinggg");
+   
+  };
+
+  const showDrawer = (row) => {
+  
+    setDrawerrow(row)
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
   };
 
   return (
@@ -172,7 +152,68 @@ const DuplicateFormatter = (cell,row,rowIndex) =>{
         buttonText="+ Add Contacts"
         onButtonClick={() => navigateTo(`/home/add`)}
       />
-
+      <Drawer
+        title="View Details"
+        placement="right"
+        onClose={onClose}
+        visible={visible}
+      >
+      
+        <div  className="px-4 py-2">
+          <span>Contact Name&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.contact_name}</span>
+        </div>
+        <div  className="px-4 py-2">
+          <span>Customer Name&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.customer_name}</span>
+        </div>
+        <div  className="px-4 py-2">
+          <span>Company Name&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.company_name}</span>
+        </div>
+        
+        <div  className="px-4 py-2">
+          <span>Email&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.email}</span>
+        </div>
+        <div  className="px-4 py-2">
+          <span>Mobile&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.mobile}</span>
+        </div>
+        <div  className="px-4 py-2">
+          <span>Phone&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.phone}</span>
+        </div>
+        <div  className="px-4 py-2">
+          <span>website&nbsp;:&nbsp;</span>
+          <span>{drawerrow?.website}</span>
+        </div>
+      
+        <div className="d-flex justify-content-end mt-5">
+                <button
+                  type="submit"
+                  style={{ marginRight: "5px" }}
+                  className="btn form_primary_btn  px-4 py-2"
+                  onClick={() => navigateTo(`/home/update`, { state: drawerrow })}
+                >
+                  Edit 
+                </button>
+                <button
+                  className="btn form_primary_btn  px-4 py-2"
+                  style={{ marginRight: "5px" }}
+                  onClick={() => navigateTo(`/home/duplicate`, { state: drawerrow })}
+                >
+                  Duplicate
+                </button>
+                <button
+                  className="btn btn-danger  px-4 py-2"
+                  style={{ marginRight: "5px" }}
+                  onClick={() => deleteContactList(drawerrow)}
+                >
+                  Delete
+                </button>
+              </div>
+      </Drawer>
       <div>
         {!isLoading && columns.length > 0 && (
           <Table keyField="SlNo" data={contactsList} columns={columns} />
