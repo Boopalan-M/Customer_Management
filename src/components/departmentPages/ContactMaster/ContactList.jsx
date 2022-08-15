@@ -1,20 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { IoMdCreate } from "react-icons/io";
-
+import { AiFillDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import SubTitle from "../../common/SubTitle/SubTitle";
-import ExampleTable from "../../common/Table/ExampleTable";
-import { getContactList } from "../../../services/ContactService";
+import {HiDuplicate} from "react-icons/hi";
+import {
+  getContactList,
+  deleteContact,
+} from "../../../services/ContactService";
 import Table from "../../common/Table/Table";
+
+import _ from "lodash";
+import { showNotification } from "../../common/Methods/index";
 const ContactList = () => {
   const [columns, setColumns] = useState([]);
-
   const [isLoading, setLoading] = useState(true);
-  const [contactList, setcontactList] = useState([]);
 
+  const [contactsList, setContactsList] = useState([]);
+
+  const navigateTo = useNavigate();
   useEffect(() => {
+    ContactList();
     initialData();
   }, []);
 
+  const ContactList = async () => {
+    const apiResponse = await getContactList();
+    console.log(apiResponse, "checking Apiresponse");
+    let contactListData = [];
+    if (apiResponse?.status === 200 && apiResponse?.data?.length > 0) {
+      contactListData = apiResponse?.data?.map((list, index) => {
+        list["SlNo"] = index + 1;
+        return list;
+      });
+      setContactsList(contactListData);
+    } else {
+      setContactsList([]);
+    }
+
+    // axios.get("https://invoice.zoho.in/api/v3/contacts",
+    //     {
+    //       headers: {
+    //        //"organizationid":"60016244602",
+    //         "Authorization": `Zoho-oauthtoken 1000.8d9f65815f421973304f6ef2f6a0a04f.71cc3cfd49d7e0c6ada3bdeb8f963962`,
+    //         // "access-control-allow-origin": "*",
+    //         // "Content-type": "application/json; charset=UTF-8",
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+  };
   const initialData = async () => {
     await initTableData();
 
@@ -26,43 +66,33 @@ const ContactList = () => {
     setColumns(columnsData);
   };
 
-  const getColumnHeaders = async () => {
+  const getColumnHeaders = () => {
     let keys = [
-      "SlNo",
-      "contactname",
+      "contact_name",
       "company_name",
-      "email",
-      "phone",
+      "website",
       "mobile",
       "edit",
       "status",
+      "Duplicate"
     ];
     let def = {
-      SlNo: {
-        dataField: "SlNo",
-        text: "Sl.no",
-        sort: true,
-      },
-      amcName: {
-        dataField: "contactname",
+      contact_name: {
+        dataField: "contact_name",
         text: "contact_name",
         sort: true,
       },
-      amcDescription: {
-        dataField: "amcDescription",
+      company_name: {
+        dataField: "company_name",
         text: "company_name",
       },
-      startDate: {
-        dataField: "email",
-        text: "email",
+      website: {
+        dataField: "website",
+        text: "Website",
       },
-      endDate: {
-        dataField: "phone",
-        text: "phone",
-      },
-      amcLimit: {
+      mobile: {
         dataField: "mobile",
-        text: "mobile",
+        text: "Mobile",
       },
       edit: {
         dataField: "edit",
@@ -72,34 +102,80 @@ const ContactList = () => {
       status: {
         dataField: "activeStatus",
         text: "Status",
+        formatter: deleteFormatter,
       },
+      Duplicate:{
+        dataField: "activeStatus",
+        text: "Duplicate",
+        formatter: DuplicateFormatter,
+      }
     };
-    let columnsFields = [];
 
-    keys.forEach((key) => {
-      columnsFields.push({ ...def[key] });
+    let columns = [];
+    _.forEach(keys, (key) => {
+      columns.push({ ...def[key] });
     });
-    return columnsFields;
+    return columns;
   };
 
   const editFormatter = (cell, row) => {
+    console.log(row, "checking row");
     let links = [];
-    links.push(<IoMdCreate title="Edit" className="table_icon" />);
+    links.push(
+      <IoMdCreate
+        title="Edit"
+        className="table_icon"
+        onClick={() => navigateTo(`/home/update`, { state: row })}
+      />
+    );
     return <div className="text-center">{links.concat(" ")}</div>;
+  };
+  const deleteFormatter = (cell, row, rowIndex) => {
+    let links = [];
+    links.push(
+      <AiFillDelete
+        title="Delete"
+        className="table_icon"
+        onClick={() => deleteContactList(row)}
+      />
+    );
+    return <div className="text-center">{links.concat(" ")}</div>;
+  };
+const DuplicateFormatter = (cell,row,rowIndex) =>{
+  let links = [];
+  links.push(
+    <HiDuplicate
+      title="Duplicate"
+      className="table_icon"
+      onClick={() => navigateTo(`/home/duplicate`, { state: row })}
+    />
+  );
+  return <div className="text-center">{links.concat(" ")}</div>;
+}
+  const deleteContactList = async (row) => {
+    const apiResponse = await deleteContact(row);
+    if (apiResponse.status === 200) {
+      showNotification({
+        title: "Data Deleted Successfully",
+        variant: "success",
+      });
+      navigateTo(`/home/list`);
+    }
+    console.log(apiResponse, "checkinggg");
   };
 
   return (
     <div className="Contact_List">
-     
       <SubTitle
-         heading={`Contacts List`}
+        heading={`Contacts List`}
         isButton={true}
         buttonText="+ Add Contacts"
+        onButtonClick={() => navigateTo(`/home/add`)}
       />
 
       <div>
         {!isLoading && columns.length > 0 && (
-          <ExampleTable keyField="SlNo" data={contactList} columns={columns} />
+          <Table keyField="SlNo" data={contactsList} columns={columns} />
         )}
       </div>
     </div>

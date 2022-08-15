@@ -12,9 +12,9 @@ function App() {
     
       <div className="app">
         <Routes>
-          
-          <Route path={`/home`} element={<Contatcts />} />
-
+       
+          <Route path="/home/:pageName" element={<Contatcts />} />
+         
         </Routes>
       </div> 
   )
