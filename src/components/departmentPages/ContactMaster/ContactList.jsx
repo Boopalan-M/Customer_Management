@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { IoMdCreate } from "react-icons/io";
-import { AiFillDelete } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import SubTitle from "../../common/SubTitle/SubTitle";
-import { HiDuplicate } from "react-icons/hi";
-import {
-  getContactList,
-  deleteContact,
-} from "../../../services/ContactService";
-import Table from "../../common/Table/Table";
-import "../../../common.scss";
 import _ from "lodash";
-import { showNotification } from "../../common/Methods/index";
-import { Button, Drawer } from "antd";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../../common.scss";
+import {
+  getContactList
+} from "../../../services/ContactService";
+import SubTitle from "../../common/SubTitle/SubTitle";
+import Table from "../../common/Table/Table";
 const ContactList = ({formType, editState, ...props} ) => {
   const [columns, setColumns] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -113,36 +107,39 @@ const ContactList = ({formType, editState, ...props} ) => {
       <div
         className="text-center"
         style={{ cursor: "pointer" }}
-        onClick={() => showDrawer(row)}
+        onClick={() =>
+          navigateTo(`/home/view`,{ state: row })
+        }
+        // onClick={() => showDrawer(row)}
       >
         {links.concat(" ")}
       </div>
     );
   };
  
-  const deleteContactList = async (row) => {
-    const apiResponse = await deleteContact(row);
-    if (apiResponse.status === 200) {
-      showNotification({
-        title: "Data Deleted Successfully",
-        variant: "success",
-      });
-      await ContactList();
-      onClose();
-      navigateTo(`/home/list`);
-    }
+  // const deleteContactList = async (row) => {
+  //   const apiResponse = await deleteContact(row);
+  //   if (apiResponse.status === 200) {
+  //     showNotification({
+  //       title: "Data Deleted Successfully",
+  //       variant: "success",
+  //     });
+  //     await ContactList();
+  //     onClose();
+  //     navigateTo(`/home/list`);
+  //   }
    
-  };
+  // };
 
-  const showDrawer = (row) => {
+  // const showDrawer = (row) => {
   
-    setDrawerrow(row)
-    setVisible(true);
-  };
+  //   setDrawerrow(row)
+  //   setVisible(true);
+  // };
 
-  const onClose = () => {
-    setVisible(false);
-  };
+  // const onClose = () => {
+  //   setVisible(false);
+  // };
 
   return (
     <div className="Contact_List">
@@ -152,7 +149,7 @@ const ContactList = ({formType, editState, ...props} ) => {
         buttonText="+ Add Contacts"
         onButtonClick={() => navigateTo(`/home/add`)}
       />
-      <Drawer
+      {/* <Drawer
         title="View Details"
         placement="right"
         onClose={onClose}
@@ -213,7 +210,7 @@ const ContactList = ({formType, editState, ...props} ) => {
                   Delete
                 </button>
               </div>
-      </Drawer>
+      </Drawer> */}
       <div>
         {!isLoading && columns.length > 0 && (
           <Table keyField="SlNo" data={contactsList} columns={columns} />
