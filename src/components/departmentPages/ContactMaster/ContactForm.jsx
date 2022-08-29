@@ -58,7 +58,7 @@ const ContactForm = ({ formType, editState, ...props }) => {
           title: "Data Added Successfully",
           variant: "success",
         });
-        navigateTo(`/home/list`);
+        navigateTo(`/home/view`);
       } else {
         showNotification({
           title:  "Data not added",
